@@ -1,3 +1,3 @@
 from replit import db
 
-db.clear()
+db.clear() # Clears the db keys

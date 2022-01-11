@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 import threading
 from emoji_game import EmojiGame
+from shop import Shop
 from replit import db
 from datetime import datetime
 
@@ -23,6 +24,8 @@ def checkIfUserExists(author):
     db[str(author)] = {
       "mora": 0,
       "items": [],
+      "health": 100,
+      "damage": 10, # ILL BRB - DARK
       "game_cooldown": None
     } # Set up account
 
@@ -75,13 +78,34 @@ async def on_message(msg):
   if MSG.startswith(f"{PREFIX}search"):
     random_coin = random.randint(750, 2750)
     all_count = random.randint(1, 7)
-    items = [f"{random_coin} Mora", f"{all_count} wood", f"{all_count} apples", f"{all_count} mushrooms", f"{all_count} eggs", f"{all_count} sunsettia"]
-    item = random.choice(items)
+    items2 = [f"{random_coin} Mora", f"{all_count} wood", f"{all_count} apples", f"{all_count} mushrooms", f"{all_count} eggs", f"{all_count} sunsettia"]
+    item2 = random.choice(items2)
 
-    await msg.channel.send("You got " + item + "!")
+    
+
+    await msg.channel.send("You got " + item2 + "!")
+  
+  if MSG.startswith(f"{PREFIX}shop"):
+    shop = Shop(msg)
+    await shop.printShop()
     
   if MSG.startswith(f"{PREFIX}bal") or MSG.startswith(f"{PREFIX}balance") or MSG.startswith(f"{PREFIX}mora"):
     checkIfUserExists(msg.author.id)
     await msg.channel.send("You have " + str(db[str(msg.author.id)]["mora"]) + " Mora!")
+
+  if MSG.startswith(f"{PREFIX}inv") or MSG.startswith(f"{PREFIX}inventory"):
+    checkIfUserExists(msg.author.id)
+    # rn items = []
+    item = ""
+    for i in db[str(msg.author.id)]["items"]:
+      item += i
+    if item == "" or len(db[str(msg.author.id)]["items"]) == 0:
+      await msg.channel.send("You have no items!")
+    else:
+      await msg.channel.send("You have " + item + " items!")
+
+  if MSG.startswith(f"{PREFIX}stats") or MSG.startswith(f"{PREFIX}st"):
+    checkIfUserExists(msg.author.id)
+    await msg.channel.send("Health: " + str(db[str(msg.author.id)]["health"]) + "\nDamage: " + str(db[str(msg.author.id)]["damage"]))
 
 client.run(os.environ["TOKEN"])

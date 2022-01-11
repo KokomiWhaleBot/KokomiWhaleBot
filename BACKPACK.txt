@@ -1,6 +1,6 @@
 This is a backpack of scripts we can share with eachother. I made this so you can copy this into your code so you don't have to ask me or redo it :)
 
-The cooldown doesn't work :(
+The cooldown doesn't work :( Oof
 
 -------------
 Cooldown: 

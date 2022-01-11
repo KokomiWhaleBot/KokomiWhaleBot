@@ -11,7 +11,7 @@ class EmojiGame:
     self.didGo = False 
     self.isCorrectEmoji = False
     self.isInEmojis = False
-    self.delay = 1 # 1.5 is also a good delay
+    self.delay = 2 # 1.5 is also a good delay
 
   def is_done(self):
     return self.didGo
@@ -28,7 +28,7 @@ class EmojiGame:
     msg = self.msg
     bot = self.bot
     # 1 is emoji game
-    emojis = ["🤣", "😏", "🙁", "🤨", "😑", "😳"]
+    emojis = ["🤣", "🙁", "🤨", "😑", "😳"]
     emoji = random.choice(emojis)
     emj_msg = await msg.channel.send("Remember this emoji: " + str(emoji))
     await asyncio.sleep(self.delay) # 1.5 second delay
