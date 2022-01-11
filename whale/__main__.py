@@ -81,7 +81,7 @@ async def on_message(msg):
     items2 = [f"{random_coin} Mora", f"{all_count} wood", f"{all_count} apples", f"{all_count} mushrooms", f"{all_count} eggs", f"{all_count} sunsettia"]
     item2 = random.choice(items2)
 
-    
+    db[str(msg.author.id)]["items"].append(item2)
 
     await msg.channel.send("You got " + item2 + "!")
   
