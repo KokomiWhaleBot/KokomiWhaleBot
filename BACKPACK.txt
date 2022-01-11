@@ -1,0 +1,23 @@
+This is a backpack of scripts we can share with eachother. I made this so you can copy this into your code so you don't have to ask me or redo it :)
+
+The cooldown doesn't work :(
+
+-------------
+Cooldown: 
+
+```
+last = db[str(msg.author.id)]["game_cooldown"]
+now = datetime.now()
+cur = now.strftime("%S")
+can_go = False
+if last == None:
+  db[str(msg.author.id)]["game_cooldown"] = cur
+  can_go = True
+else:
+  last = int(last)
+  cur = int(cur)
+  if cur > last + 20 or cur < last: # Change the 20 on this line to your seconds of choice
+    can_go = True
+  else: can_go = False
+# Use can_go to see if the user can proceed or not
+```

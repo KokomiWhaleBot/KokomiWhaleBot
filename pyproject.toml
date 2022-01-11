@@ -9,6 +9,7 @@ python = "^3.8"
 discord = "^1.7.3"
 discord-components = "^2.1.2"
 discord-ui = "^5.1.6"
+replit = "^3.2.4"
 
 [tool.poetry.dev-dependencies]
 

@@ -6,6 +6,8 @@ import json
 from datetime import datetime
 import threading
 from emoji_game import EmojiGame
+from replit import db
+from datetime import datetime
 
 intents = discord.Intents.default()
 # intents.members = True
@@ -13,6 +15,16 @@ intents = discord.Intents.default()
 client = discord.Client(intents=intents)
 
 PREFIX = "k!"
+
+def checkIfUserExists(author):
+  try:
+    db[str(author)]
+  except:
+    db[str(author)] = {
+      "mora": 0,
+      "items": [],
+      "game_cooldown": None
+    } # Set up account
 
 bot = commands.Bot(command_prefix = PREFIX, intents=intents)
   
@@ -35,20 +47,26 @@ async def on_message(msg):
 `{PREFIX}daily`: Recieve daily rewards. (Currently unavailable)
 `{PREFIX}game`: Play a game to recieve rewards.
 `{PREFIX}search`: Search to get items or small rewards.
+`{PREFIX}balance`: View Mora balance.
+`{PREFIX}inv`: View current items and foods.
+
+> Tip: You can shorten the function name for easier access!
 """) # im going to remove the ``` for now.
 
   if MSG.startswith(f"{PREFIX}daily"):
     await msg.channel.send("This command is currently under construction!");
 
   if MSG.startswith(f"{PREFIX}game"):
-    game_choice = random.randint(0, 2)
+    checkIfUserExists(msg.author.id)
+    game_choice = random.randint(1, 2)
     if game_choice == 1 or game_choice == 2: # Change this when there are more games
-      game = EmojiGame(msg, client)
+      game = EmojiGame(msg,   client)
       await game.run_game()
       isCorrectEmoji = game.get_info()
       if game.is_done():
         if isCorrectEmoji:
-          await msg.channel.send("You had the correct emoji!")
+          await msg.channel.send("You had the correct emoji! You got 100 Mora!")
+          db[str(msg.author.id)]["mora"] += 100
         else:
           await msg.channel.send("You had the wrong emoji!")
         game.reset() # Resets all of the variables for cleanup and easy memory destruction
@@ -61,5 +79,9 @@ async def on_message(msg):
     item = random.choice(items)
 
     await msg.channel.send("You got " + item + "!")
+    
+  if MSG.startswith(f"{PREFIX}bal") or MSG.startswith(f"{PREFIX}balance") or MSG.startswith(f"{PREFIX}mora"):
+    checkIfUserExists(msg.author.id)
+    await msg.channel.send("You have " + str(db[str(msg.author.id)]["mora"]) + " Mora!")
 
 client.run(os.environ["TOKEN"])

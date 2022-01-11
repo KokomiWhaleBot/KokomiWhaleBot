@@ -28,7 +28,7 @@ class EmojiGame:
     msg = self.msg
     bot = self.bot
     # 1 is emoji game
-    emojis = ["👋", "😀", "🤣", "🤓", "😏", "🙁", "🤑", "🤨", "😑", "😬", "🤥", "🥶", "🤠", "😳"]
+    emojis = ["🤣", "😏", "🙁", "🤨", "😑", "😳"]
     emoji = random.choice(emojis)
     emj_msg = await msg.channel.send("Remember this emoji: " + str(emoji))
     await asyncio.sleep(self.delay) # 1.5 second delay
