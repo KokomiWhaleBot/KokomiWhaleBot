@@ -55,10 +55,9 @@ async def on_message(msg):
 `{PREFIX}shop`: View shop to get items.
 `{PREFIX}buy <item>`: Buy item from the shop.
 `{PREFIX}stats`: View health and damage stats.
-`{PREFIX}inv`: View current items and foods.
-
-> Tip: You can shorten the function name for easier access!""")
+`{PREFIX}inv`: View current items and foods.""")
     await msg.channel.send(embed = builder)
+    await msg.channel.send("> Tip: You can shorten the function name for easier access!")
 
   if MSG.startswith(f"{PREFIX}daily"):
     await msg.channel.send("This command is currently under construction!");
@@ -148,7 +147,7 @@ async def on_message(msg):
   if MSG.startswith(f"{PREFIX}inv") or MSG.startswith(f"{PREFIX}inventory"):
     checkIfUserExists(msg.author.id)
     await msg.channel.send(f"{msg.author.mention}") # for notif
-    builder = discord.Embed(name = "Inventory", description = f"{msg.author.mention}'s inventory")
+    builder = discord.Embed(title = "Inventory", name = "Inventory")
     items = db[str(msg.author.id)]["items"]
 
     for i in items.keys():
