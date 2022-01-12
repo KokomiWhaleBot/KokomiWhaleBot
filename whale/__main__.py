@@ -2,13 +2,10 @@ import discord
 from discord.ext import commands
 import os
 import random
-import json
-from datetime import datetime
+from replit import db
+
 from emoji_game import EmojiGame
 from shop import Shop
-from memory_game import MemoryGame
-from replit import db
-from datetime import datetime
 
 def has(item, id):
       hasItem = False
@@ -22,7 +19,8 @@ intents = discord.Intents.default()
 
 db["shop_items"] = {
   "apple": 200,
-  "sunsettia": 200
+  "sunsettia": 200,
+  # "potion-of-life": 10000
 }
 
 client = discord.Client(intents=intents)
@@ -35,6 +33,7 @@ def checkIfUserExists(author):
   except:
     db[str(author)] = {
       "mora": 0,
+      "primogems": 1600,
       "health": 100,
       "damage": 10,
       "game_cooldown": None,
@@ -197,7 +196,6 @@ async def on_message(msg):
 
   if MSG.startswith(f"{PREFIX}upgrade") or MSG.startswith(f"{PREFIX}u"):
     a = random.choice([True, False])
-
     if a:
       healthp = random.randint(10, 50)
       db[str(msg.author.id)]["health"] += healthp
@@ -217,7 +215,12 @@ async def on_message(msg):
       else:
         await msg.channel.send("You do not have enough Mora!")
 
-#   if MSG.startswith(f"{PREFIX}battle"):
-  #   boss = random.choice([""])
+  if MSG.startswith(f"{PREFIX}battle"):
+    b = random.choice([True, False])
+
+    if b: # boss is true
+      pass
+    else:
+      pass
 
 client.run(os.environ["TOKEN"])

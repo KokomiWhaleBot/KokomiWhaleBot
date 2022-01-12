@@ -11,7 +11,7 @@ class EmojiGame:
     self.didGo = False 
     self.isCorrectEmoji = False
     self.isInEmojis = False
-    self.delay = 2 # 1.5 is also a good delay
+    self.delay = 1 # 1.5 is also a good delay
 
   def is_done(self):
     return self.didGo

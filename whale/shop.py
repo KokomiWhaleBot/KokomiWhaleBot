@@ -6,6 +6,7 @@ class Shop:
     builder = discord.Embed(title="Kokomi's Whale Shop!", description="A place to shop for your desires!", color=0x00ff00)
     builder.add_field(name = "🍎 Apple - 200 Mora", value = "Simple item that heals you during battles", inline = False)
     builder.add_field(name = "🍑 Sunsettia - 200 Mora", value = "Simple item that heals you during battles", inline = False)
+    # builder.add_field(name = "⚗️ Potion of Life - 10k Mora", value = "Powerful item that completely restores your heal [CANNOT BE USED IN BATTLE]", inline = False)
     self.shop_msg = builder
 
   async def printShop(self):
