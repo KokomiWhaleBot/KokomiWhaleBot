@@ -30,7 +30,7 @@ class EmojiGame:
     # 1 is emoji game
     emojis = ["🤣", "🙁", "🤨", "😑", "😳"]
     emoji = random.choice(emojis)
-    emj_msg = await msg.channel.send("Remember this emoji: " + str(emoji))
+    emj_msg = await msg.channel.send(f"{self.msg.author.mention}, remember this emoji: " + str(emoji))
     await asyncio.sleep(self.delay) # 1.5 second delay
 
     # Set reactions
@@ -47,5 +47,6 @@ class EmojiGame:
         isCorrectEmoji = reaction.emoji == emoji
         self.didGo = True 
         self.isCorrectEmoji = isCorrectEmoji
+        self.emj_msg = emj_msg
       return self.isInEmojis
     await bot.wait_for('reaction_add', check = check) # Wait for user to add reaction 
