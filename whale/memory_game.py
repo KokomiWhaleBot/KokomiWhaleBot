@@ -3,6 +3,7 @@ import discord
 import random
 import asyncio
 
+
 class MemoryGame:
   def __init__(self, msg: discord.message.Message, bot):
     self.msg = msg
